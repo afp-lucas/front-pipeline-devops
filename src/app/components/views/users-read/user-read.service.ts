@@ -28,4 +28,9 @@ export class UserReadService {
     return this.http.get<RoleHistoryItem[]>(url);
 
   }
+
+  updateUserEmail(userObj: User, userId: number):Observable<User>{
+    const url = `${this.baseUrl}/users/${userId}/update-email`;
+    return this.http.put<User>(url,userObj);
+  }
 }

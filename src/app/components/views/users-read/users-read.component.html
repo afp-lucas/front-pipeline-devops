@@ -67,6 +67,9 @@
         <div class="control">
           <p>{{this.selectedUser.email}}</p>
         </div>
+        <p>
+          <button class="button is-editing is-light" (click)="toggleModal(editUserModal)"> Edit </button>
+        </p>
       </div>
       <div class="field">
         <label class="label">Histórico de Cargos</label>
@@ -81,6 +84,31 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-link is-light" (click)="toggleModal(viewUserModal)"> Close </button>
+    </footer>
+  </div>
+</div>
+
+<!-- MODAL TO EDIT USER INFO !-->
+<div class="modal" #editUserModal>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit User</p>
+      <button class="delete" aria-label="close" (click)="toggleModal(editUserModal)"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- MODAL CONTENT -->
+      <div class="field">
+        <label class="label">New Email</label>
+        <div class="control">
+          <input class="input" type="text" #newEmail>
+        </div>
+      </div>
+      <!-- MODAL CONTENT -->
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-link" (click)="editUserEmail(userName.value, newEmail.value, editUserModal)"> Save </button>
+      <button class="button is-link is-light" (click)="toggleModal(editUserModal)"> Cancel </button>
     </footer>
   </div>
 </div>

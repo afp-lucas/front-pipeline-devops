@@ -51,6 +51,38 @@ export class UsersReadComponent implements OnInit {
     })
   }
 
+  editUserEmail(userName: string, newEmail: string, modal: HTMLElement){
+    let userObj = {} as User;
+    userObj.name = userName;
+    userObj.email = newEmail;
+    // Verifica se foi selecionado um usuário
+    if (!this.selectedUser || !this.selectedUser.id) {
+      console.error("No user selected");
+      return;
+    }
+
+    // Atualiza o email do usuário selecionado
+    this.selectedUser.email = newEmail;
+    console.log("testeeee", this.selectedUser.email);
+
+    // Chama o serviço para atualizar o email no backend
+    this.service.updateUserEmail(this.selectedUser, this.selectedUser.id)
+      .subscribe({
+        next: (response) => {
+          // Aqui você pode lidar com a resposta do backend, se necessário
+          console.log("User email updated successfully");
+          console.log(response);
+          // Fecha o modal após a atualização
+          this.toggleModal(modal);
+          alert("User email updated!");
+        },
+        error: (erroResp) => {
+          console.error("Error updating user email:", erroResp);
+          alert("Failed to update user email");
+        }
+      });
+  }
+
   viewUser(user: User, modal: HTMLElement){
     this.selectedUser = user;
     this.getRoleHistory();
